@@ -527,7 +527,7 @@ int main(void) {
         /* Codificar como JPEG */
         writeJpeg(pixels, (unsigned short)width, (unsigned short)height);
         fclose(outfile);
-        printf("Arquivo tinyCC/%s salvo.\n", filename);
+        printf("Arquivo tinyCC/%s salvo\n", filename);
     }
 
     printf("\n%d arquivos imagens salvos com sucesso\n", qtdimagens);

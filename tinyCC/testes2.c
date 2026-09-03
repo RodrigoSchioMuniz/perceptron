@@ -26,12 +26,12 @@ int main(){
 		fclose(fp);
 	}
 
-	//inicializa os pesos e bias com valor buscado do txt
-	double weights[8];
-	double bias;
+	//inicializa os pesos e finalbias com valor buscado do txt
+	double bias[8];
+	double finalbias;
 	fp=fopen("bias2.txt","r");
-	for(int i=0;i<8;i++)fscanf(fp,"%lf\n",&weights[i]);
-	fscanf(fp,"%lf\n",&bias);
+	for(int i=0;i<8;i++)fscanf(fp,"%lf\n",&bias[i]);
+	fscanf(fp,"%lf\n",&finalbias);
 	fclose(fp);
 
 	//contabilizando acertos e erros
@@ -41,8 +41,8 @@ int main(){
 	for(int x=0;x<1000;x++){
 		int alguma=rand()%qtdimagens; //escolhe uma imagem qualquer
 
-		double somatorio=bias;
-		for(int h=0;h<8;h++)somatorio+=weights[h]*chunks[alguma][h];
+		double somatorio=finalbias;
+		for(int h=0;h<8;h++)somatorio+=bias[h]*chunks[alguma][h];
 
 		if(alguma<qtdimagens/2) //se a imagem contem um circulo
 			if(somatorio<0)circulocerto++;
@@ -52,10 +52,10 @@ int main(){
 			else quadradoerrado++;
 	}
 
-	printf("\nEsperado circulo dado circulo: %d\n",circulocerto);
-	printf("Esperado circulo dado quadrado: %d\n",circuloerrado);
-	printf("Esperado quadrado dado quadrado: %d\n",quadradocerto);
-	printf("Esperado quadrado dado circulo: %d\n\n",quadradoerrado);
+	printf("\nEsperado circulo dado circulo (acertos): %d\n",circulocerto);
+	printf("Esperado circulo dado quadrado (erros): %d\n",circuloerrado);
+	printf("Esperado quadrado dado quadrado (acertos): %d\n",quadradocerto);
+	printf("Esperado quadrado dado circulo (erros): %d\n\n",quadradoerrado);
 
 	return 0;
 }

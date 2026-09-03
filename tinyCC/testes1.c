@@ -23,11 +23,11 @@ int main(){
 	fclose(fp);
 
 	//buscando dados no arquivo texto
-	double weights[8];
-	double bias;
+	double bias[8];
+	double finalbias;
 	fp=fopen("bias1.txt","r");
-	for(int i=0;i<8;i++)fscanf(fp,"%lf\n",&weights[i]);
-	fscanf(fp,"%lf\n",&bias);
+	for(int i=0;i<8;i++)fscanf(fp,"%lf\n",&bias[i]);
+	fscanf(fp,"%lf\n",&finalbias);
 	fclose(fp);
 
 	//contabilizando acertos e erros
@@ -37,8 +37,8 @@ int main(){
 	for(int x=0;x<1000;x++){
 		fruta alguma=dataset[rand()%60]; //escolhe uma fruta qualquer
 
-		double somatorio=bias;
-		for(int h=0;h<8;h++)somatorio+=weights[h]*alguma.inputs[h];
+		double somatorio=finalbias;
+		for(int h=0;h<8;h++)somatorio+=bias[h]*alguma.inputs[h];
 
 		if(alguma.target>0.5)
 			if(somatorio>0)laranjacerto++;

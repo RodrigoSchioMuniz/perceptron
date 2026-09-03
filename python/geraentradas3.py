@@ -397,6 +397,6 @@ for x in range(qtdimagens):
 
     filename = f"imagens/amostra{x:04d}.jpg"
     writeJpeg(pixels, width, height, filename)
-    print(f"Arquivo python/{filename} salvo.")
+    print(f"Arquivo python/{filename} salvo")
 
-print(f"\n{qtdimagens:d} arquivos imagens salvos com sucesso.")
+print(f"\n{qtdimagens:d} arquivos imagens salvos com sucesso")

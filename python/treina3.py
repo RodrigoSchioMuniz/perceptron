@@ -12,17 +12,17 @@ for i in range(qtdimagens):
         for x in range(tamanho):chunks[i][h]+=buf[(h*tamanho)+x]
 
 #inicializa estruturas de dados
-weights=[random.random() for x in range(8)]
-bias=0.0
+bias=[random.random() for x in range(8)]
+finalbias=0.0
 
-for x in range(20000): #ajusta os bias centenas de vezes
+for x in range(20000): #ajusta os finalbias centenas de vezes
     erros=0
 
     for i in range(80): #cada geracao tem 80 individuos
         alguma=random.randint(0,qtdimagens-1) #escolhe uma imagem qualquer
 
-        somatorio=bias
-        for h in range(8):somatorio=somatorio+(weights[h]*chunks[alguma][h])
+        somatorio=finalbias
+        for h in range(8):somatorio=somatorio+(bias[h]*chunks[alguma][h])
 
         degrau=1.0 if somatorio>=0.0 else 0.0
         target=1.0 if alguma<qtdimagens/2 else 0.0
@@ -30,16 +30,16 @@ for x in range(20000): #ajusta os bias centenas de vezes
 
         if degrau!=0.0:
             erros=erros+1
-            for h in range(8):weights[h]=weights[h]+(0.0001*degrau*chunks[alguma][h]) #ajusta os weights para mais ou para menos de acordo com target-degrau
-            bias=bias+(0.0001*degrau)
+            for h in range(8):bias[h]=bias[h]+(0.0001*degrau*chunks[alguma][h]) #ajusta os bias nos 4 casos
+            finalbias=finalbias+(0.0001*degrau)
 
-    print(f"{20000 - x} biasfinal = {bias:.6f}")
+    print(f"{20000 - x} finalbias = {finalbias:.6f}")
 
-    if x%1000==0 and erros==0:break; #o bias foi encontrado
+    if x%1000==0 and erros==0:break; #o finalbias foi encontrado
 
-#salva o bias no arquivo
+#salva os bias e finalbias
 with open('bias2.txt','w')as f:
-    for h in range(8):f.write(f"{weights[h]:.12f}\n") #grava no arquivo os weights
-    f.write(f"{bias:.12f}\n") #grava no arquivo os bias
+    for h in range(8):f.write(f"{bias[h]:.12f}\n") #grava no arquivo os bias
+    f.write(f"{finalbias:.12f}\n") #grava no arquivo os finalbias
 
 print("\nTreinamento finalizado. Pesos salvos em 'bias2.txt'")

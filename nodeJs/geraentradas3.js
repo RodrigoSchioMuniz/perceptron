@@ -339,7 +339,7 @@ function writeJpeg(pixels, width, height, filename) {
 
 	// Salva o arquivo final
 	fs.writeFileSync(filename, outputBuffer.slice(0, outputPtr));
-	console.log(`Arquivo nodeJS/${filename} salvo.`);
+	console.log(`Arquivo nodeJS/${filename} salvo`);
 }
 
 width=400;
@@ -387,4 +387,4 @@ for(x=0;x<qtdimagens;x++){
 	writeJpeg(pixels,width,height,`imagens/amostra${String(x).padStart(4,'0')}.jpg`);
 }
 
-console.log("\n"+qtdimagens+" arquivos imagens salvos com sucesso.");
+console.log("\n"+qtdimagens+" arquivos imagens salvos com sucesso");

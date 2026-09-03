@@ -7,17 +7,17 @@ dataset=linhas.map(linha=>{
 	return{peso:parseFloat(peso),especie};
 });
 
-//inicializa o bias com um valor aleatorio
-bias=Math.random(); //valor entre 0 e 1
+//inicializa o finalbias com um valor aleatorio
+finalbias=Math.random(); //valor entre 0 e 1
 
-for(x=0;x<4000;x++){ //ajusta o bias centenas de vezes
+for(x=0;x<4000;x++){ //ajusta o finalbias centenas de vezes
 	alguma=dataset[parseInt(Math.random()*25)]; //escolhe uma laranja qualquer
 
-	//ajusta o bias pouco a pouco
-	if(alguma.peso>bias)bias+=bias*0.01; //ajusta o bias um pouco a mais
-	if(alguma.peso<bias)bias-=bias*0.01; //ajusta o bias um pouco a menos
+	//ajusta o finalbias pouco a pouco
+	if(alguma.peso>finalbias)finalbias+=finalbias*0.01; //ajusta o finalbias um pouco a mais
+	if(alguma.peso<finalbias)finalbias-=finalbias*0.01; //ajusta o finalbias um pouco a menos
 
-	console.log(`biasfinal = ${bias.toFixed(6)}`);
+	console.log(`finalbias = ${finalbias.toFixed(6)}`);
 }
 
-console.log(`\nO valor que diferencia as laranjas: ${bias.toFixed(6)}\n\nCom uma margem de erro calibrada esse valor pode ser utilizado para classificar a fruta.`);
+console.log(`\nO valor que diferencia as laranjas: ${finalbias.toFixed(6)}\n\nCom uma margem de erro calibrada esse valor pode ser utilizado para classificar a fruta.`);

@@ -12,19 +12,19 @@ int main(){
 	for(int x=0;x<50;x++)fscanf(fp,"%lf %c\n",&peso[x],&especie[x]);
 	fclose(fp);
 
-	//inicializa o bias com um valor aleatorio
-	double bias=(double)rand()/(double)(RAND_MAX); //valor entre 0 e 1
+	//inicializa o finalbias com um valor aleatorio
+	double finalbias=(double)rand()/(double)(RAND_MAX); //valor entre 0 e 1
 
-	for(int x=0;x<4000;x++){ //ajusta o bias centenas de vezes
+	for(int x=0;x<4000;x++){ //ajusta o finalbias centenas de vezes
 		int alguma=rand()%25; //escolhe uma laranja qualquer
 
-		//ajusta o bias pouco a pouco
-		if(peso[alguma]>bias)bias=bias+(bias*0.01); //ajusta o bias um pouco a mais
-		if(peso[alguma]<bias)bias=bias-(bias*0.01); //ajusta o bias um pouco a menos
+		//ajusta o finalbias pouco a pouco
+		if(peso[alguma]>finalbias)finalbias=finalbias+(finalbias*0.01); //ajusta o finalbias um pouco a mais
+		if(peso[alguma]<finalbias)finalbias=finalbias-(finalbias*0.01); //ajusta o finalbias um pouco a menos
 
-		printf("biasfinal = %.6lf\n",bias);
+		printf("finalbias = %.6lf\n",finalbias);
 	}
 
-	printf("\nO valor que diferencia as laranjas: %.6lf\n\nCom uma margem de erro calibrada esse valor pode ser utilizado para classificar a fruta.\n",bias);
+	printf("\nO valor que diferencia as laranjas: %.6lf\n\nCom uma margem de erro calibrada esse valor pode ser utilizado para classificar a fruta.\n",finalbias);
 	return 0;
 }

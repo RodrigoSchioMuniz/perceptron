@@ -11,8 +11,8 @@ for(i=0;i<qtdimagens;i++){
 }
 
 //inicializa estruturas de dados
-weights=Array.from({length:8},()=>Math.random());
-bias=0.0;
+bias=Array.from({length:8},()=>Math.random());
+finalbias=0.0;
 
 for(x=0;x<20000;x++){ //treinamento
 	erros=0;
@@ -20,8 +20,8 @@ for(x=0;x<20000;x++){ //treinamento
 	for(i=0;i<300;i++){ //cada geracao tem 300 individuos
 		alguma=parseInt(Math.random()*qtdimagens); //escolhe uma imagem qualquer
 
-		somatorio=bias;
-		for(h=0;h<8;h++)somatorio+=weights[h]*chunks[alguma][h];
+		somatorio=finalbias;
+		for(h=0;h<8;h++)somatorio+=bias[h]*chunks[alguma][h];
 
 		degrau=somatorio>=0.0?1.0:0.0;
 		target=alguma>qtdimagens/2?1.0:0.0;
@@ -29,18 +29,18 @@ for(x=0;x<20000;x++){ //treinamento
 
 		if(degrau!=0.0){
 			erros++;
-			for(h=0;h<8;h++)weights[h]+=0.01*degrau*chunks[alguma][h]; //ajusta os weights para mais ou para menos de acordo com target-degrau
-			bias+=0.01*degrau;
+			for(h=0;h<8;h++)bias[h]+=0.01*degrau*chunks[alguma][h]; //ajusta os bias nos 4 casos
+			finalbias+=0.01*degrau;
 		}
 	}
 
-	console.log(`${20000-x} biasfinal = ${bias.toFixed(6)}`);
+	console.log(`${20000-x} finalbias = ${finalbias.toFixed(6)}`);
 
-	if(x%1000==0&&erros==0)break; //o bias foi encontrado
+	if(x%1000==0&&erros==0)break; //o finalbias foi encontrado
 }
 
-//salva os bias e weights
-data=[weights,bias];
+//salva os bias e finalbias
+data=[bias,finalbias];
 fs.writeFileSync('bias2.txt',JSON.stringify(data),'utf-8');
 
-console.log("\nTreinamento finalizado. weights e bias salvos em 'bias2.txt'");
+console.log("\nTreinamento finalizado. bias e finalbias salvos em 'bias2.txt'");
