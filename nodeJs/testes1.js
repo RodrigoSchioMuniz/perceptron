@@ -11,28 +11,28 @@ for(x=0;x<60;x++){
 
 //buscando dados no arquivo texto
 lidas=JSON.parse(fs.readFileSync('bias1.txt','utf-8'));
-weights=lidas[0];
-bias=lidas[1];
+bias=lidas[0];
+finalbias=lidas[1];
 
 //contabilizando acertos e erros
-laranjacerto=0,laranjaerrado=0,qqrcerto=0,qqrerrado=0;
+laranjacerto=0,laranjaerrado=0,qualquercerto=0,qualquererrado=0;
 
 //testa a inteligencia artificial com 1000 predições aleatórias
 for(x=0;x<1000;x++){
 	alguma=parseInt(Math.random()*60); //escolhe uma fruta qualquer
 
 	somatorio=0.0;
-	for(h=0;h<8;h++)somatorio+=inputs[alguma][h]*weights[h];
+	for(h=0;h<8;h++)somatorio+=inputs[alguma][h]*bias[h];
 
 	if(target[alguma]>0.5)
 		if(somatorio>0)laranjacerto++;
 		else laranjaerrado++;
 	if(target[alguma]<0.5)
-		if(somatorio<0)qqrcerto++;
-		else qqrerrado++;
+		if(somatorio<0)qualquercerto++;
+		else qualquererrado++;
 }
 
-console.log("\nEsperado laranja dado laranja: "+laranjacerto);
-console.log("Esperado laranja dado qqr: "+laranjaerrado);
-console.log("Esperado qqr dado qqr: "+qqrcerto);
-console.log("Esperado qqr dado laranja: "+qqrerrado);
+console.log("\nEsperado laranja dado laranja (acertos): "+laranjacerto);
+console.log("Esperado laranja dado qualquer (erros): "+laranjaerrado);
+console.log("Esperado qualquer dado qualquer (acertos): "+qualquercerto);
+console.log("Esperado qualquer dado laranja (erros): "+qualquererrado);

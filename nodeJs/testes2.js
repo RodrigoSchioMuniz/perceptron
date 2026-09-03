@@ -10,10 +10,10 @@ for(i=0;i<qtdimagens;i++){
 	for(h=0;h<8;h++)for(x=0;x<tamanho;x++)chunks[i][h]+=buffer[(h*tamanho)+x];
 }
 
-//inicializa os pesos e bias com valor buscado do txt
+//inicializa os bias e o finalbias com valor buscado do txt
 lidas=JSON.parse(fs.readFileSync('bias2.txt','utf-8'));
-weights=lidas[0];
-bias=lidas[1];
+bias=lidas[0];
+finalbias=lidas[1];
 
 //contabilizando acertos e erros
 circulocerto=0,circuloerrado=0,quadradocerto=0,quadradoerrado=0;
@@ -22,8 +22,8 @@ circulocerto=0,circuloerrado=0,quadradocerto=0,quadradoerrado=0;
 for(x=0;x<1000;x++){
 		alguma=Math.floor(Math.random()*qtdimagens); //escolhe uma fruta qualquer
 
-		somatorio=bias;
-		for(h=0;h<8;h++)somatorio+=weights[h]*chunks[alguma][h];
+		somatorio=finalbias;
+		for(h=0;h<8;h++)somatorio+=bias[h]*chunks[alguma][h];
 
 		if(alguma<qtdimagens/2) //se a imagem contem um circulo
 			if(somatorio<0)circulocerto++;
@@ -33,7 +33,7 @@ for(x=0;x<1000;x++){
 			else quadradoerrado++;
 }
 
-console.log("\nEsperado circulo dado circulo: "+circulocerto);
-console.log("Esperado circulo dado quadrado: "+circuloerrado);
-console.log("Esperado quadrado dado quadrado: "+quadradocerto);
-console.log("Esperado quadrado dado circulo: "+quadradoerrado);
+console.log("\nEsperado circulo dado circulo (acertos): "+circulocerto);
+console.log("Esperado circulo dado quadrado (erros): "+circuloerrado);
+console.log("Esperado quadrado dado quadrado (acertos): "+quadradocerto);
+console.log("Esperado quadrado dado circulo (erros): "+quadradoerrado);

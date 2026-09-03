@@ -17,9 +17,9 @@ vals=[]
 with open("bias2.txt","r")as f:
     for line in f:
         vals.append(float(line.strip()))
-weights=[0.0 for x in range(8)]
-for h in range(8):weights[h]=vals[h];
-bias=vals[8]
+bias=[0.0 for x in range(8)]
+for h in range(8):bias[h]=vals[h];
+finalbias=vals[8]
 
 #contabilizando acertos e erros
 circulocerto=circuloerrado=quadradocerto=quadradoerrado=0
@@ -28,8 +28,8 @@ circulocerto=circuloerrado=quadradocerto=quadradoerrado=0
 for x in range(1000):
     alguma=random.randint(0,qtdimagens-1) #escolhe uma imagem qualquer
 
-    somatorio=bias
-    for h in range(8):somatorio+=chunks[alguma][h]*weights[h]
+    somatorio=finalbias
+    for h in range(8):somatorio+=chunks[alguma][h]*bias[h]
 
     if alguma<qtdimagens/2: #se a imagem contem um circulo
         if somatorio>0:
@@ -42,7 +42,7 @@ for x in range(1000):
         else:
             quadradoerrado=quadradoerrado+1
 
-print(f"\nEsperado circulo dado circulo: {circulocerto}")
-print(f"Esperado circulo dado quadrado: {circuloerrado}")
-print(f"Esperado quadrado dado quadrado: {quadradocerto}")
-print(f"Esperado quadrado dado circulo: {quadradoerrado}\n")
+print(f"\nEsperado circulo dado circulo (acertos): {circulocerto}")
+print(f"Esperado circulo dado quadrado (erros): {circuloerrado}")
+print(f"Esperado quadrado dado quadrado (acertos): {quadradocerto}")
+print(f"Esperado quadrado dado circulo (erros): {quadradoerrado}\n")

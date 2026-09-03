@@ -14,19 +14,19 @@ vals=[]
 with open("bias1.txt","r")as f:
     for line in f:
         vals.append(float(line.strip()))
-weights=[0.0 for _ in range(8)]
-for h in range(8):weights[h]=vals[h];
-bias=vals[8]
+bias=[0.0 for _ in range(8)]
+for h in range(8):bias[h]=vals[h];
+finalbias=vals[8]
 
 #contabilizando acertos e erros
-laranjacerto=laranjaerrado=qqrcerto=qqrerrado=0
+laranjacerto=laranjaerrado=qualquercerto=qualquererrado=0
 
 #testa a inteligencia artificial com 1000 predições aleatórias
 for x in range(1000):
     alguma=random.randrange(60) #escolhe uma fruta qualquer
 
-    somatorio=bias
-    for h in range(8):somatorio+=inputs[alguma][h]*weights[h]
+    somatorio=finalbias
+    for h in range(8):somatorio+=inputs[alguma][h]*bias[h]
 
     if target[alguma]>0.5:
         if somatorio>0:
@@ -35,11 +35,11 @@ for x in range(1000):
             laranjaerrado=laranjaerrado+1
     if target[alguma]<0.5:
         if somatorio<0:
-            qqrcerto=qqrcerto+1
+            qualquercerto=qualquercerto+1
         else:
-            qqrerrado=qqrerrado+1
+            qualquererrado=qualquererrado+1
 
-print(f"\nEsperado laranja dado laranja: {laranjacerto}")
-print(f"Esperado laranja dado qqr: {laranjaerrado}")
-print(f"Esperado qqr dado qqr: {qqrcerto}")
-print(f"Esperado qqr dado laranja: {qqrerrado}\n")
+print(f"\nEsperado laranja dado laranja (acertos): {laranjacerto}")
+print(f"Esperado laranja dado qualquer (erros): {laranjaerrado}")
+print(f"Esperado qualquer dado qualquer (acertos): {qualquercerto}")
+print(f"Esperado qualquer dado laranja (erros): {qualquererrado}\n")
